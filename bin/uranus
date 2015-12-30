@@ -1,15 +1,14 @@
 #!/usr/bin/env ruby
 
-require 'hashdiff'
-
 $:.unshift(File.join(File.dirname(__FILE__), "..", "lib"))
 
 require 'uranus/aws/ec2/instance'
 require 'uranus/utils'
+require 'pp'
 
 spec = eval File.read(ARGV[0])
 
 spec.each{|resource, properties|
   r = Uranus::Utils.to_klass(resource).new(properties)
-  puts HashDiff.diff(r.current, r.desired)
+  pp r.diff
 }

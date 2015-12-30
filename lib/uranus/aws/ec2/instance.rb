@@ -1,6 +1,7 @@
 require 'uranus/exceptions'
 require 'uranus/utils'
 require 'aws-sdk'
+require 'hashdiff'
 
 module Uranus
   module Aws
@@ -44,6 +45,10 @@ module Uranus
             h[p] = self.send(p)
             h
           }
+        end
+
+        def diff
+          HashDiff.diff(self.current, self.desired)
         end
       end
     end
